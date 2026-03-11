@@ -88,3 +88,19 @@
 .signup-footer a:hover {
   text-decoration: underline;
 }
+
+.otp-btn{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#6c63ff;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+
+.verified-text{
+  color:green;
+  font-weight:600;
+  margin:10px 0;
+}

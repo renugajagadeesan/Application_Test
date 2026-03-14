@@ -147,7 +147,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="hero-stats">
+        {/* <div className="hero-stats">
           <div className="stat">
             <h3>2M+</h3>
             <p>Happy Customers</p>
@@ -160,7 +160,7 @@ const HomePage = () => {
             <h3>4.9★</h3>
             <p>Average Rating</p>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Popular Destinations */}

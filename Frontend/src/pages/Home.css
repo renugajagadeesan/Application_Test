@@ -300,33 +300,47 @@ body {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 5rem;
   color: var(--white);
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  margin-bottom: 3rem;
+  line-height: 1.4;
 }
 
 .title-line {
   display: block;
-  animation: slideInLeft 0.8s ease;
   color: #3f7db3;
+  animation: slideInLeft 6s ease forwards;
 }
 
 .title-line.highlight {
   background: linear-gradient(90deg, #FFD700, #FFA500);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: slideInRight 0.8s ease;
+  animation: slideInRight 6s ease forwards;
 }
 
+/* Left → Right */
 @keyframes slideInLeft {
-  from { transform: translateX(-50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
+/* Right → Left */
 @keyframes slideInRight {
-  from { transform: translateX(50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .hero-subtitle {

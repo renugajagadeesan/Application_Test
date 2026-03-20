@@ -1,70 +1,14 @@
 const User = require("../models/User");
-const Otp = require("../models/Otp");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const twilio = require("twilio");
-
-const client = twilio(
-process.env.TWILIO_ACCOUNT_SID,
-process.env.TWILIO_AUTH_TOKEN
-);
+const axios = require("axios");
 
 
 
-// SEND OTP
-exports.sendOtp = async (req, res) => {
-
-try {
-
-const { phone } = req.body;
-
-const otp = Math.floor(100000 + Math.random() * 900000);
-
-await Otp.create({
-phone,
-otp,
-expiresAt: Date.now() + 5 * 60 * 1000
-});
-
-await client.messages.create({
-body: `Your OTP is ${otp}`,
-from: process.env.TWILIO_PHONE_NUMBER,
-to: phone
-});
-
-res.json("OTP sent successfully");
-
-} catch (err) {
-res.status(500).json(err.message);
-}
-};
 
 
 
-// VERIFY OTP
-exports.verifyOtp = async (req, res) => {
-
-try {
-
-const { phone, otp } = req.body;
-
-const record = await Otp.findOne({ phone, otp });
-
-if (!record) return res.status(400).json("Invalid OTP");
-
-if (record.expiresAt < Date.now())
-return res.status(400).json("OTP expired");
-
-await Otp.deleteMany({ phone });
-
-res.json("Phone verified");
-
-} catch (err) {
-res.status(500).json(err.message);
-}
-};
-
-
+//  .............................................. signup and login functions............................................
 
 // SIGNUP
 exports.signup = async (req, res) => {
@@ -83,7 +27,7 @@ username,
 email,
 password: hashedPassword,
 phone,
-phoneVerified: true
+// phoneVerified: true
 });
 
 res.json({ message: "Signup Successful", user });
@@ -124,4 +68,67 @@ user: { email: user.email }
 } catch (err) {
 res.status(500).json(err.message);
 }
+};
+
+
+
+
+//......................................... destination card  crud operations............................................
+
+// controllers/destinationController.js
+const Destination = require('../models/Destination');
+
+// CREATE
+exports.createDestination = async (req, res) => {
+  try {
+    const destination = new Destination(req.body);
+    const saved = await destination.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+// READ ALL
+exports.getAllDestinations = async (req, res) => {
+  try {
+    const data = await Destination.find();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+// READ ONE
+exports.getDestinationById = async (req, res) => {
+  try {
+    const data = await Destination.findById(req.params.id);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+// UPDATE
+exports.updateDestination = async (req, res) => {
+  try {
+    const updated = await Destination.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+// DELETE
+exports.deleteDestination = async (req, res) => {
+  try {
+    await Destination.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted successfully' });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };

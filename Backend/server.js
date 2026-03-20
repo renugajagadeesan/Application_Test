@@ -4,6 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
+// console.log("API KEY:", process.env.FAST2SMS_API_KEY);
+
 
 const app = express();
 

@@ -81,11 +81,29 @@ const Destination = require('../models/Destination');
 // CREATE
 exports.createDestination = async (req, res) => {
   try {
-    const destination = new Destination(req.body);
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
+    const { city, country, price, rating } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json("Image is required");
+    }
+
+    const destination = new Destination({
+      city,
+      country,
+      price,
+      rating,
+      image: req.file.path
+    });
+
     const saved = await destination.save();
     res.status(201).json(saved);
+
   } catch (err) {
-    res.status(500).json(err);
+    console.error("ERROR:", err); // 🔥 THIS WILL SHOW REAL ISSUE
+    res.status(500).json(err.message);
   }
 };
 
@@ -112,14 +130,27 @@ exports.getDestinationById = async (req, res) => {
 // UPDATE
 exports.updateDestination = async (req, res) => {
   try {
+    const updateData = {
+      city: req.body.city,
+      country: req.body.country,
+      price: req.body.price,
+      rating: req.body.rating
+    };
+
+    if (req.file) {
+      updateData.image = req.file.path; // ✅ new image
+    }
+
     const updated = await Destination.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true }
     );
+
     res.json(updated);
+
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 };
 

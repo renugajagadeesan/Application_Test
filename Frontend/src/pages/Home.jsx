@@ -6,6 +6,7 @@ const HomePage = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [popularDestinations, setPopularDestinations] = useState([]);
   const navigate = useNavigate();
 
   const goToSignin = () => {
@@ -21,20 +22,45 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const popularDestinations = [
-    { id: 1, city: 'Paris', country: 'France', price: '$120', image: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400', rating: 4.8 },
-    { id: 2, city: 'Tokyo', country: 'Japan', price: '$95', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400', rating: 4.9 },
-    { id: 3, city: 'New York', country: 'USA', price: '$150', image: 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=400', rating: 4.7 },
-    { id: 4, city: 'Dubai', country: 'UAE', price: '$200', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400', rating: 4.6 },
-    { id: 5, city: 'Rome', country: 'Italy', price: '$110', image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400', rating: 4.7 },
-    { id: 6, city: 'Bali', country: 'Indonesia', price: '$75', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400', rating: 4.8 },
-    { id: 7, city: 'Barcelona', country: 'Spain', price: '$105', image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400', rating: 4.7 },
-    { id: 8, city: 'Sydney', country: 'Australia', price: '$180', image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400', rating: 4.6 },
-    { id: 9, city: 'Santorini', country: 'Greece', price: '$130', image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400', rating: 4.9 },
-    { id: 10, city: 'Maldives', country: 'Maldives', price: '$350', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400', rating: 5.0 },
-    { id: 11, city: 'Amsterdam', country: 'Netherlands', price: '$115', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=400', rating: 4.6 },
-    { id: 12, city: 'Cape Town', country: 'South Africa', price: '$90', image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400', rating: 4.8 },
-  ];
+  // const popularDestinations = [
+
+  //   { id: 1, city: 'Paris', country: 'France', price: '$120', image: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400', rating: 4.8 },
+  //   { id: 2, city: 'Tokyo', country: 'Japan', price: '$95', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400', rating: 4.9 },
+  //   { id: 3, city: 'New York', country: 'USA', price: '$150', image: 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=400', rating: 4.7 },
+  //   { id: 4, city: 'Dubai', country: 'UAE', price: '$200', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400', rating: 4.6 },
+  //   { id: 5, city: 'Rome', country: 'Italy', price: '$110', image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400', rating: 4.7 },
+  //   { id: 6, city: 'Bali', country: 'Indonesia', price: '$75', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400', rating: 4.8 },
+  //   { id: 7, city: 'Barcelona', country: 'Spain', price: '$105', image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400', rating: 4.7 },
+  //   { id: 8, city: 'Sydney', country: 'Australia', price: '$180', image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400', rating: 4.6 },
+  //   { id: 9, city: 'Santorini', country: 'Greece', price: '$130', image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400', rating: 4.9 },
+  //   { id: 10, city: 'Maldives', country: 'Maldives', price: '$350', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400', rating: 5.0 },
+  //   { id: 11, city: 'Amsterdam', country: 'Netherlands', price: '$115', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=400', rating: 4.6 },
+  //   { id: 12, city: 'Cape Town', country: 'South Africa', price: '$90', image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400', rating: 4.8 },
+  // ];
+
+useEffect(() => {
+  const handleScroll = () => {
+    setIsSticky(window.scrollY > 100);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  // ✅ FETCH DESTINATIONS
+  fetchDestinations();
+
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+const fetchDestinations = async () => {
+  try {
+const res = await fetch("http://localhost:5000/api/auth/destinations");
+    const data = await res.json();
+    setPopularDestinations(data);
+  } catch (err) {
+    console.error("Error fetching destinations:", err);
+  }
+};
+
 
   const features = [
     { icon: '🏨', title: 'Best Hotels', description: 'Hand-picked luxury accommodations' },

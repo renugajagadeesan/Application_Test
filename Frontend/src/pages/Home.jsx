@@ -10,57 +10,30 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const goToSignin = () => {
-    navigate("/signup"); // or "/login" depending on your route
+    navigate("/signup");
   };
 
-
+  // ✅ Single merged useEffect — no duplicate scroll listener
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 100);
     };
+
     window.addEventListener('scroll', handleScroll);
+    fetchDestinations(); // ✅ fetch on mount
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // const popularDestinations = [
-
-  //   { id: 1, city: 'Paris', country: 'France', price: '$120', image: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400', rating: 4.8 },
-  //   { id: 2, city: 'Tokyo', country: 'Japan', price: '$95', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400', rating: 4.9 },
-  //   { id: 3, city: 'New York', country: 'USA', price: '$150', image: 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=400', rating: 4.7 },
-  //   { id: 4, city: 'Dubai', country: 'UAE', price: '$200', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400', rating: 4.6 },
-  //   { id: 5, city: 'Rome', country: 'Italy', price: '$110', image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400', rating: 4.7 },
-  //   { id: 6, city: 'Bali', country: 'Indonesia', price: '$75', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400', rating: 4.8 },
-  //   { id: 7, city: 'Barcelona', country: 'Spain', price: '$105', image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400', rating: 4.7 },
-  //   { id: 8, city: 'Sydney', country: 'Australia', price: '$180', image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400', rating: 4.6 },
-  //   { id: 9, city: 'Santorini', country: 'Greece', price: '$130', image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400', rating: 4.9 },
-  //   { id: 10, city: 'Maldives', country: 'Maldives', price: '$350', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400', rating: 5.0 },
-  //   { id: 11, city: 'Amsterdam', country: 'Netherlands', price: '$115', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=400', rating: 4.6 },
-  //   { id: 12, city: 'Cape Town', country: 'South Africa', price: '$90', image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400', rating: 4.8 },
-  // ];
-
-useEffect(() => {
-  const handleScroll = () => {
-    setIsSticky(window.scrollY > 100);
+  const fetchDestinations = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/destinations");
+      const data = await res.json();
+      setPopularDestinations(data);
+    } catch (err) {
+      console.error("Error fetching destinations:", err);
+    }
   };
-
-  window.addEventListener('scroll', handleScroll);
-
-  // ✅ FETCH DESTINATIONS
-  fetchDestinations();
-
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
-
-const fetchDestinations = async () => {
-  try {
-const res = await fetch("http://localhost:5000/api/auth/destinations");
-    const data = await res.json();
-    setPopularDestinations(data);
-  } catch (err) {
-    console.error("Error fetching destinations:", err);
-  }
-};
-
 
   const features = [
     { icon: '🏨', title: 'Best Hotels', description: 'Hand-picked luxury accommodations' },
@@ -121,7 +94,6 @@ const res = await fetch("http://localhost:5000/api/auth/destinations");
             <span className="title-line">Discover Your</span>
             <span className="title-line highlight">Perfect Stay</span>
           </h1>
-          {/* <p className="hero-subtitle">Experience luxury hotels at unbeatable prices worldwide</p> */}
 
           <div className="search-box">
             <div className="search-field">
@@ -151,21 +123,6 @@ const res = await fetch("http://localhost:5000/api/auth/destinations");
             </button>
           </div>
         </div>
-
-        {/* <div className="hero-stats">
-          <div className="stat">
-            <h3>2M+</h3>
-            <p>Happy Customers</p>
-          </div>
-          <div className="stat">
-            <h3>1000+</h3>
-            <p>Hotels Worldwide</p>
-          </div>
-          <div className="stat">
-            <h3>4.9★</h3>
-            <p>Average Rating</p>
-          </div>
-        </div> */}
       </section>
 
       {/* Popular Destinations */}
@@ -176,30 +133,37 @@ const res = await fetch("http://localhost:5000/api/auth/destinations");
             <p className="section-subtitle">Explore our most booked locations</p>
           </div>
 
-          <div className="destination-grid">
-            {popularDestinations.map((dest) => (
-              <div key={dest.id} className="destination-card">
-                <div className="card-image">
-                  <img src={dest.image} alt={dest.city} />
-                  <div className="card-overlay">
-                    <button className="explore-btn">Explore</button>
+          {/* ✅ Loading state */}
+          {popularDestinations.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#888' }}>Loading destinations...</p>
+          ) : (
+            <div className="destination-grid">
+              {popularDestinations.map((dest) => (
+                <div key={dest._id} className="destination-card">
+                  <div className="card-image">
+                    {/* ✅ Cloudinary URL stored in dest.image */}
+                    <img src={dest.image} alt={dest.city} />
+                    <div className="card-overlay">
+                      <button className="explore-btn">Explore</button>
+                    </div>
+                    <span className="card-badge">Hot Deal</span>
                   </div>
-                  <span className="card-badge">Hot Deal</span>
+                  <div className="card-content">
+                    <div className="card-header">
+                      <h3>{dest.city}</h3>
+                      <span className="rating">⭐ {dest.rating}</span>
+                    </div>
+                    <p className="location">{dest.country}</p>
+                    <div className="card-footer">
+                      {/* ✅ price stored as number in DB — prefix ₹ here */}
+                      <span className="price">From <strong>₹{dest.price}</strong>/night</span>
+                      <button className="book-btn">Book Now</button>
+                    </div>
+                  </div>
                 </div>
-                <div className="card-content">
-                  <div className="card-header">
-                    <h3>{dest.city}</h3>
-                    <span className="rating">⭐ {dest.rating}</span>
-                  </div>
-                  <p className="location">{dest.country}</p>
-                  <div className="card-footer">
-                    <span className="price">From <strong>{dest.price}</strong>/night</span>
-                    <button className="book-btn">Book Now</button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -283,7 +247,7 @@ const res = await fetch("http://localhost:5000/api/auth/destinations");
           <div className="newsletter-content">
             <h2>Subscribe to Our Newsletter</h2>
             <p>Get exclusive deals and travel tips delivered to your inbox</p>
-            <form className="newsletter-form">
+            <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
               <input type="email" placeholder="Enter your email address" />
               <button type="submit">Subscribe</button>
             </form>

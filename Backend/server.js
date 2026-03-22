@@ -4,9 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
-// console.log("API KEY:", process.env.FAST2SMS_API_KEY);
-
-
 const app = express();
 
 // Middleware
@@ -15,6 +12,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+
 
 // DB Connection
 const MONGO_URI = process.env.MONGO_URI;

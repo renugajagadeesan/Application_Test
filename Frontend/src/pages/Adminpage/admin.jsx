@@ -22,34 +22,51 @@ function Admin() {
     setDestinations(res.data);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const formData = new FormData();
-  formData.append("city", form.city);
-  formData.append("country", form.country);
-  formData.append("price", form.price);
-  formData.append("rating", form.rating);
-  formData.append("image", form.image);
+    const formData = new FormData();
+    formData.append("city", form.city);
+    formData.append("country", form.country);
+    formData.append("price", form.price);
+    formData.append("rating", form.rating);
+    formData.append("image", form.image);
 
-  if (editId) {
-    await axios.put(
-      `http://localhost:5000/api/auth/${editId}`,
-      formData
-    );
-    setEditId(null);
-  } else {
-    await axios.post(
-  "http://localhost:5000/api/auth/",formData
-);
-  }
+    if (editId) {
+      await axios.put(
+        `http://localhost:5000/api/auth/${editId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
+      setEditId(null);
+    } else {
+      await axios.post(
+        "http://localhost:5000/api/auth/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
+    }
 
-  setForm({ city: '', country: '', price: '', image: '', rating: '' });
-  fetchDestinations();
-};
+    setForm({ city: '', country: '', price: '', image: '', rating: '' });
+    fetchDestinations();
+  };
 
   const handleEdit = (item) => {
-    setForm(item);
+    setForm({
+      city: item.city,
+      country: item.country,
+      price: item.price,
+      rating: item.rating,
+      image: null // ❗ reset file
+    });
     setEditId(item._id);
   };
 
@@ -68,10 +85,8 @@ const handleSubmit = async (e) => {
           <input placeholder="City" value={form.city} onChange={e => setForm({ ...form, city: e.target.value })} />
           <input placeholder="Country" value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} />
           <input placeholder="Price" value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} />
-<input 
-  type="file" 
-  onChange={e => setForm({ ...form, image: e.target.files[0] })}
-/>          <input placeholder="Rating" value={form.rating} onChange={e => setForm({ ...form, rating: e.target.value })} />
+          <input type="file" onChange={e => setForm({ ...form, image: e.target.files[0] })}/>        
+           <input placeholder="Rating" value={form.rating} onChange={e => setForm({ ...form, rating: e.target.value })} />
         </div>
 
         <button className="submit-btn" type="submit">

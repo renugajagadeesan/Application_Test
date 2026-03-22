@@ -81,8 +81,8 @@ const Destination = require('../models/Destination');
 // CREATE
 exports.createDestination = async (req, res) => {
   try {
-    console.log("BODY:", req.body);
     console.log("FILE:", req.file);
+    console.log("BODY:", req.body);
 
     const { city, country, price, rating } = req.body;
 
@@ -94,7 +94,7 @@ exports.createDestination = async (req, res) => {
       city,
       country,
       price,
-      rating,
+      rating: Number(rating),
       image: req.file.path
     });
 
@@ -102,7 +102,7 @@ exports.createDestination = async (req, res) => {
     res.status(201).json(saved);
 
   } catch (err) {
-    console.error("ERROR:", err); // 🔥 THIS WILL SHOW REAL ISSUE
+    console.error("ERROR FULL:", err);
     res.status(500).json(err.message);
   }
 };

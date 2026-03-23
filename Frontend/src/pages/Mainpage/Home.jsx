@@ -61,7 +61,7 @@ const HomePage = () => {
 
             <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
               <li><a href="#home" className="nav-link">Home</a></li>
-              <li><a href="#destinations" className="nav-link">Destinations</a></li>
+              <li><a href="/destination" className="nav-link">Destinations</a></li>
               <li><a href="#deals" className="nav-link">Deals</a></li>
               <li><a href="#about" className="nav-link">About</a></li>
               <li><a href="#contact" className="nav-link">Contact</a></li>

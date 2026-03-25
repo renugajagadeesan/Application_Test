@@ -75,6 +75,7 @@ export default function DestinationPage() {
   const { slug } = useParams();
 
   const [hotels, setHotels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const destination = DESTINATIONS.find(
     (d) => toSlug(d.name) === slug
@@ -86,10 +87,36 @@ export default function DestinationPage() {
     }
   }, [destination]);
 
-  const loadHotels = async () => {
-    const data = await searchHotels(destination.name);
+//  const loadHotels = async () => {
+//   setLoading(true);
+//   const data = await searchHotels(destination.apiName || destination.name);
+//   setHotels(data);
+//   setLoading(false);
+// };
+
+const loadHotels = async () => {
+  setLoading(true);
+
+  const data = await searchHotels(destination.apiName || destination.name);
+
+  if (!data || data.length === 0) {
+    // 👇 fallback hotels
+    setHotels([
+      {
+        hotel_id: 1,
+        hotel_name: `${destination.name} Resort`,
+        address: destination.location,
+        review_score: 4.5,
+        max_1440_photo_url: destination.img,
+        min_total_price: 5000,
+      },
+    ]);
+  } else {
     setHotels(data);
-  };
+  }
+
+  setLoading(false);
+};
 
   if (!destination) return <h2>Destination not found</h2>;
 
@@ -114,9 +141,11 @@ export default function DestinationPage() {
         <h2>Available Hotels</h2>
 
         <div className="hotel-grid">
-          {hotels.length === 0 ? (
-            <p>Loading hotels...</p>
-          ) : (
+          {loading ? (
+  <p>Loading hotels...</p>
+) : hotels.length === 0 ? (
+  <p>No hotels found 😢</p>
+) : (
             hotels.map((hotel) => (
               <div key={hotel.hotel_id} className="hotel-card">
                 <img

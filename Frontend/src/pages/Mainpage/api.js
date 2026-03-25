@@ -35,6 +35,8 @@ export const searchHotels = async (cityName) => {
           room_number: "1",
           order_by: "popularity",
           locale: "en-gb",
+          units: "metric",              // ✅ add this
+          currency: "INR",              // ✅ add this
         },
         headers: {
           "X-RapidAPI-Key": API_KEY,

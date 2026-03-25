@@ -82,7 +82,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="hero" id="home">
+      <section className="hero-home" id="home">
         <div className="hero-bg">
           <div className="floating-element element-1">✈️</div>
           <div className="floating-element element-2">🌴</div>

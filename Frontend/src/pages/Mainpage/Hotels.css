@@ -115,9 +115,9 @@
 }
 
 /* ─── Hero ──────────────────────────────────────── */
-.hero {
+.hero-hotels {
   /* margin-top: 80px; */
-  min-height: 60vh;
+  min-height: 80vh;
   /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
   background-image: url("https://images.unsplash.com/photo-1699144972937-71acbaba5197?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") !important; /* your image */
   background-size: cover !important;
@@ -595,4 +595,28 @@
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.4; }
+}
+
+
+
+.dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 5px;
+  width: 200px;
+  border-radius: 8px;
+}
+
+.dropdown-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.dropdown-row button {
+  margin: 0 5px;
+  padding: 4px 8px;
+  cursor: pointer;
 }

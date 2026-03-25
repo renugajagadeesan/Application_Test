@@ -5,6 +5,9 @@ import Login from './pages/Mainpage/Login'
 import Home from './pages/Mainpage/Home'
 import Admin from "./pages/Adminpage/admin"
 import Hotels from './pages/Mainpage/Hotels'
+import DestinationPage from "./pages/Mainpage/DestinationPage"; // we'll create this
+
+
 
 function App() {
   return (
@@ -15,6 +18,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/hotels" element={<Hotels />} />
+        <Route path="/destination/:slug" element={<DestinationPage />} />
 
       </Routes>
     </BrowserRouter>

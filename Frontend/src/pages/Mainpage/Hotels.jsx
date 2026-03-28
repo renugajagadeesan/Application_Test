@@ -49,7 +49,7 @@ import { DESTINATIONS } from "./Data/destinations.jsx";
 const CATEGORIES = ["All", "Beach", "Mountains", "Luxury", "Nature", "City", "Heritage"];
 
 const toSlug = (name) =>
-  name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
 const OFFERS = [
     { label: "40% OFF", brand: "Sarovar Hotels", sub: "Limited period", color: "#fff3ee", accent: "#ff5c28" },
@@ -138,32 +138,32 @@ export default function Hotels() {
 
                     {/* Search Bar */}
                     <div className="search-box">
-            <div className="search-field">
-              <label>📍 Location</label>
-              <input type="text" placeholder="Where are you going?" />
-            </div>
-            <div className="search-field">
-              <label>📅 Check-in</label>
-               <input type="date" onChange={(e) => setCheckIn(e.target.value)} />           
-             </div>
-            <div className="search-field">
-              <label>📅 Check-out</label>
-              <input type="date" />
-            </div>
-            <div className="search-field">
-              <label>👥 Guests</label>
-              <select>
-                <option>2 Adults</option>
-                <option>1 Adult</option>
-                <option>3 Adults</option>
-                <option>4+ Adults</option>
-              </select>
-            </div>
-            <button className="search-btn">
-              <span>Search Hotels</span>
-              <span className="btn-icon">→</span>
-            </button>
-          </div>
+                        <div className="search-field">
+                            <label>📍 Location</label>
+                            <input type="text" placeholder="Where are you going?" />
+                        </div>
+                        <div className="search-field">
+                            <label>📅 Check-in</label>
+                            <input type="date" onChange={(e) => setCheckIn(e.target.value)} />
+                        </div>
+                        <div className="search-field">
+                            <label>📅 Check-out</label>
+                            <input type="date" />
+                        </div>
+                        <div className="search-field">
+                            <label>👥 Guests</label>
+                            <select>
+                                <option>2 Adults</option>
+                                <option>1 Adult</option>
+                                <option>3 Adults</option>
+                                <option>4+ Adults</option>
+                            </select>
+                        </div>
+                        <button className="search-btn">
+                            <span>Search Hotels</span>
+                            <span className="btn-icon">→</span>
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -209,27 +209,27 @@ export default function Hotels() {
                     </div>
                     <div className="destinations-grid">
                         {filtered.map((d, i) => (
-  <Link
-    key={d.name}
-    to={`/destination/${toSlug(d.name)}`}
-    className={`dest-card ${i === 0 ? "dest-card--featured" : "dest-card--normal"}`}
-    style={{ textDecoration: "none" }}
-  >
-    <img src={d.img} alt={d.name} />
-    <div className="dest-overlay" />
-    <div className="dest-info">
-      <div className="tag-badge">{d.tag}</div>
-      <div className={`dest-name ${i === 0 ? "dest-name--featured" : "dest-name--normal"}`}>
-        {d.name}
-      </div>
-      <div className="dest-price">
-        <span className="dest-price__from">from</span>
-        <span className="dest-price__amount">{d.price}</span>
-        <span className="dest-price__night">/night</span>
-      </div>
-    </div>
-  </Link>
-))}
+                            <Link
+                                key={d.name}
+                                to={`/destination/${toSlug(d.name)}`}
+                                className={`dest-card ${i === 0 ? "dest-card--featured" : "dest-card--normal"}`}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <img src={d.img} alt={d.name} />
+                                <div className="dest-overlay" />
+                                <div className="dest-info">
+                                    <div className="tag-badge">{d.tag}</div>
+                                    <div className={`dest-name ${i === 0 ? "dest-name--featured" : "dest-name--normal"}`}>
+                                        {d.name}
+                                    </div>
+                                    <div className="dest-price">
+                                        <span className="dest-price__from">from</span>
+                                        <span className="dest-price__amount">{d.price}</span>
+                                        <span className="dest-price__night">/night</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </section>
 

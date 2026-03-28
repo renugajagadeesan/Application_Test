@@ -1,169 +1,129 @@
-// import { useParams } from "react-router-dom";
-// import { DESTINATIONS } from "./Data/destinations.jsx";
-// import "./Data/destinations.css";
-
-// const toSlug = (name) =>
-//   name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-
-// export default function DestinationPage() {
-//   const { slug } = useParams();
-
-//   const destination = DESTINATIONS.find(
-//     (d) => toSlug(d.name) === slug
-//   );
-
-//   if (!destination) return <h2>Destination not found</h2>;
-
-//   return (
-//     <div className="destination-page">
-
-//       {/* 🔥 HERO SECTION */}
-//       <div className="hero">
-//         <img src={destination.img} alt={destination.name} />
-//         <div className="hero-overlay">
-//           <h1>{destination.name}</h1>
-//           <p>📍 {destination.location}</p>
-//           <span>⭐ {destination.rating}</span>
-//         </div>
-//       </div>
-
-//       {/* 🔥 CONTENT */}
-//       <div className="content">
-
-//         {/* Description */}
-//         <p className="description">{destination.description}</p>
-
-//         {/* Highlights */}
-//         <div className="highlights">
-//           <h3>Highlights</h3>
-//           <ul>
-//             {destination.highlights.map((h, i) => (
-//               <li key={i}>✔ {h}</li>
-//             ))}
-//           </ul>
-//         </div>
-
-//         {/* Gallery */}
-//         <div className="gallery">
-//           {destination.gallery.map((img, i) => (
-//             <img key={i} src={img} alt="view" />
-//           ))}
-//         </div>
-
-//         {/* Booking Card */}
-//         <div className="booking-card">
-//           <h2>{destination.price} / night</h2>
-//           <button>Book Now</button>
-//         </div>
-
-//       </div>
-//     </div>
-//   );
-// }
-
-
 import { useParams } from "react-router-dom";
-import { DESTINATIONS } from "./Data/destinations.jsx";
 import { useEffect, useState } from "react";
-import { searchHotels } from "./api.js"; // 👈 import API
-import "./Data/destinations.css";
+import axios from "axios";
+import { DESTINATIONS } from "./Data/destinations";
 
 const toSlug = (name) =>
-  name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+  name.toLowerCase().replace(/\s+/g, "-");
 
-export default function DestinationPage() {
+const DestinationPage = () => {
   const { slug } = useParams();
 
   const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
+  // ✅ Find destination from slug
   const destination = DESTINATIONS.find(
     (d) => toSlug(d.name) === slug
   );
 
-  useEffect(() => {
-    if (destination) {
-      loadHotels();
-    }
-  }, [destination]);
+  // ✅ Fetch hotels
+useEffect(() => {
+  if (!destination) return;
+  fetchHotels(destination.apiName);
+}, [slug]);
 
-//  const loadHotels = async () => {
-//   setLoading(true);
-//   const data = await searchHotels(destination.apiName || destination.name);
-//   setHotels(data);
-//   setLoading(false);
-// };
+const fetchHotels = async (cityName) => {
+  try {
+    setLoading(true);
 
-const loadHotels = async () => {
-  setLoading(true);
-
-  const data = await searchHotels(destination.apiName || destination.name);
-
-  if (!data || data.length === 0) {
-    // 👇 fallback hotels
-    setHotels([
+    const res = await axios.get(
+      "http://localhost:5000/api/auth/hotels",
       {
-        hotel_id: 1,
-        hotel_name: `${destination.name} Resort`,
-        address: destination.location,
-        review_score: 4.5,
-        max_1440_photo_url: destination.img,
-        min_total_price: 5000,
-      },
-    ]);
-  } else {
-    setHotels(data);
-  }
+        params: { city: cityName }
+      }
+    );
 
-  setLoading(false);
+    console.log("API RESPONSE 👉", res.data);
+
+    let hotelsData = res.data?.data || [];
+
+    // ✅ Fallback if empty
+if (hotelsData.length === 0) {
+  hotelsData = [
+    {
+      name: `${cityName} Beach Resort`,
+      city: cityName,
+      rating: 4.5,
+      photo: `https://source.unsplash.com/400x300/?hotel,${cityName}`,
+      price: "5000"
+    },
+    {
+      name: `${cityName} Grand Hotel`,
+      city: cityName,
+      rating: 4.2,
+      photo: `https://source.unsplash.com/400x300/?luxury hotel,${cityName}`,
+      price: "3500"
+    }
+  ];
+}
+
+    setHotels(hotelsData);
+
+  } catch (err) {
+    console.error(err);
+    setHotels([]);
+  } finally {
+    setLoading(false);
+  }
 };
 
-  if (!destination) return <h2>Destination not found</h2>;
+
+  if (!destination) {
+    return <h2>Destination not found</h2>;
+  }
 
   return (
-    <div className="destination-page">
+    <div style={{ padding: "20px" }}>
+      <h1>{destination.name} Hotels</h1>
 
-      {/* HERO */}
-      <div className="hero">
-        <img src={destination.img} alt={destination.name} />
-        <div className="hero-overlay">
-          <h1>{destination.name}</h1>
-          <p>📍 {destination.location}</p>
-          <span>⭐ {destination.rating}</span>
-        </div>
-      </div>
+      {/* ✅ Loading */}
+      {loading && <p>Loading hotels...</p>}
 
-      <div className="content">
+      {/* ❌ No hotels */}
+      {!loading && hotels.length === 0 && (
+        <p>No hotels found</p>
+      )}
 
-        <p className="description">{destination.description}</p>
+      {/* ✅ Hotel List */}
+      <div className="hotel-list">
+       {hotels.map((hotel, index) => (
+          // console.log("IMAGE URL 👉", hotel.photo);
+  <div key={index} className="hotel-card">
+    
+   <img
+  src={
+    hotel.photo
+      ? hotel.photo.startsWith("http")
+        ? hotel.photo
+        : `https:${hotel.photo}`   // ✅ FIX HERE
+      : "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+  }
+  alt={hotel.name}
+  style={{
+    width: "100%",
+    height: "200px",
+    objectFit: "cover"
+  }}
+  onError={(e) => {
+    e.target.src =
+      "https://images.unsplash.com/photo-1501117716987-c8e1ecb210c3";
+  }}
+/>
 
-        {/* 🔥 HOTELS FROM API */}
-        <h2>Available Hotels</h2>
+    <h3>{hotel.name}</h3>
+    
+    <p>{hotel.address || hotel.city}</p>
 
-        <div className="hotel-grid">
-          {loading ? (
-  <p>Loading hotels...</p>
-) : hotels.length === 0 ? (
-  <p>No hotels found 😢</p>
-) : (
-            hotels.map((hotel) => (
-              <div key={hotel.hotel_id} className="hotel-card">
-                <img
-                  src={hotel.max_1440_photo_url}
-                  alt={hotel.hotel_name}
-                />
-                <h3>{hotel.hotel_name}</h3>
-                <p>📍 {hotel.address}</p>
-                <p>⭐ {hotel.review_score}</p>
-                <p className="price">
-                  ₹ {hotel.min_total_price || "N/A"}
-                </p>
-              </div>
-            ))
-          )}
-        </div>
+    <p>⭐ {hotel.rating || "N/A"}</p>
 
+    <p>₹ {hotel.price || "Not available"}</p>
+
+  </div>
+))}
       </div>
     </div>
   );
-}
+};
+
+export default DestinationPage;

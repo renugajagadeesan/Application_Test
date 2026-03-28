@@ -2,7 +2,7 @@ export const DESTINATIONS = [
   // Beach
   {
     name: "Maldives",
-    apiName: "Malé", // ✅ capital city
+  apiName: "Male",   // ✅ IMPORTANT (capital city)
     tag: "Beach",
     price: "₹12,500",
     img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8",
@@ -10,11 +10,11 @@ export const DESTINATIONS = [
     location: "Indian Ocean",
     rating: 4.8,
     highlights: ["Overwater villas", "Scuba diving", "Private beaches"],
-    gallery: [
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-      "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
-      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    //   "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
+    //   "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+    // ]
   },
 
   {
@@ -27,11 +27,11 @@ export const DESTINATIONS = [
     location: "India",
     rating: 4.5,
     highlights: ["Beach parties", "Water sports", "Nightlife"],
-    gallery: [
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2",
-      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da",
-      "https://images.unsplash.com/photo-1477587458883-47145ed94245"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2",
+    //   "https://images.unsplash.com/photo-1524492412937-b28074a5d7da",
+    //   "https://images.unsplash.com/photo-1477587458883-47145ed94245"
+    // ]
   },
 
   // Mountains
@@ -45,11 +45,11 @@ export const DESTINATIONS = [
     location: "Himachal Pradesh, India",
     rating: 4.6,
     highlights: ["Snow activities", "Solang Valley", "Rohtang Pass"],
-    gallery: [
-      "https://images.unsplash.com/photo-1605540436563-5bca919ae766",
-      "https://images.unsplash.com/photo-1593181629936-11c609b8db9b",
-      "https://images.unsplash.com/photo-1549880181-56a44cf4a9a5"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1605540436563-5bca919ae766",
+    //   "https://images.unsplash.com/photo-1593181629936-11c609b8db9b",
+    //   "https://images.unsplash.com/photo-1549880181-56a44cf4a9a5"
+    // ]
   },
 
   {
@@ -62,11 +62,11 @@ export const DESTINATIONS = [
     location: "Ladakh, India",
     rating: 4.9,
     highlights: ["Pangong Lake", "Bike trips", "Monasteries"],
-    gallery: [
-      "https://images.unsplash.com/photo-1597047084897-51e81819a499",
-      "https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2",
-      "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1597047084897-51e81819a499",
+    //   "https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2",
+    //   "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2"
+    // ]
   },
 
   // Luxury
@@ -80,11 +80,11 @@ export const DESTINATIONS = [
     location: "UAE",
     rating: 4.7,
     highlights: ["Burj Khalifa", "Desert safari", "Luxury malls"],
-    gallery: [
-      "https://images.unsplash.com/photo-1508057198894-247b23fe5ade",
-      "https://images.unsplash.com/photo-1526498460520-4c246339dccb",
-      "https://images.unsplash.com/photo-1546412414-e1885259563a"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1508057198894-247b23fe5ade",
+    //   "https://images.unsplash.com/photo-1526498460520-4c246339dccb",
+    //   "https://images.unsplash.com/photo-1546412414-e1885259563a"
+    // ]
   },
 
   // Nature
@@ -98,11 +98,11 @@ export const DESTINATIONS = [
     location: "Kerala, India",
     rating: 4.6,
     highlights: ["Tea gardens", "Waterfalls", "Cool climate"],
-    gallery: [
-      "https://images.unsplash.com/photo-1593693411515-c20261bcad6e",
-      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944",
-      "https://images.unsplash.com/photo-1605538883669-82527c8b3f3e"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1593693411515-c20261bcad6e",
+    //   "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944",
+    //   "https://images.unsplash.com/photo-1605538883669-82527c8b3f3e"
+    // ]
   },
 
   // City
@@ -116,11 +116,11 @@ export const DESTINATIONS = [
     location: "France",
     rating: 4.8,
     highlights: ["Eiffel Tower", "Museums", "Cafes"],
-    gallery: [
-      "https://images.unsplash.com/photo-1499510318569-0c41d3a1d8c6",
-      "https://images.unsplash.com/photo-1522098543979-ffc7f79d4f67",
-      "https://images.unsplash.com/photo-1471623320832-752e8bbf8413"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1499510318569-0c41d3a1d8c6",
+    //   "https://images.unsplash.com/photo-1522098543979-ffc7f79d4f67",
+    //   "https://images.unsplash.com/photo-1471623320832-752e8bbf8413"
+    // ]
   },
 
   // Heritage
@@ -134,36 +134,12 @@ export const DESTINATIONS = [
     location: "Rajasthan, India",
     rating: 4.5,
     highlights: ["Amber Fort", "City Palace", "Hawa Mahal"],
-    gallery: [
-      "https://images.unsplash.com/photo-1587135991058-8816d1b34f2d",
-      "https://images.unsplash.com/photo-1578469645742-46cae010e5d4",
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
-    ]
+    // gallery: [
+    //   "https://images.unsplash.com/photo-1587135991058-8816d1b34f2d",
+    //   "https://images.unsplash.com/photo-1578469645742-46cae010e5d4",
+    //   "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+    // ]
   }
 ];
 
 
-// export const DESTINATIONS = [
-//   {
-//     name: "Maldives",
-//     tag: "Beach",
-//     price: "₹12,500",
-//     img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8",
-
-//     description: "Beautiful island with clear water and luxury resorts",
-//     location: "Indian Ocean",
-//     rating: 4.8,
-
-//     highlights: [
-//       "Overwater villas",
-//       "Scuba diving",
-//       "Private beaches"
-//     ],
-
-//     gallery: [
-//       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-//       "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
-//       "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-//     ]
-//   }
-// ];

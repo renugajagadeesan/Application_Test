@@ -3,6 +3,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
+// 2Factor SMS API setup
+const smsApiKey = process.env.SMS_API_KEY;
+
+// In-memory OTP store (use Redis or DB in production)
+const otpStore = new Map();
+
 
 
 
@@ -27,7 +33,7 @@ username,
 email,
 password: hashedPassword,
 phone,
-// phoneVerified: true
+isVerified: true
 });
 
 res.json({ message: "Signup Successful", user });
@@ -68,6 +74,45 @@ user: { email: user.email }
 } catch (err) {
 res.status(500).json(err.message);
 }
+};
+
+// SEND OTP
+exports.sendOtp = async (req, res) => {
+    const { phone, method } = req.body;
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    otpStore.set(phone, { otp, expires: Date.now() + 5 * 60 * 1000 }); // 5 min expiry
+
+    console.log(`OTP for ${phone}: ${otp}`); // For testing
+
+    try {
+        if (method === 'sms') {
+            // Assuming phone is +91xxxxxxxxxx, extract number
+            const phoneNumber = phone.replace(/^\+91/, '');
+            const url = `https://2factor.in/API/V1/${smsApiKey}/SMS/${phoneNumber}/${otp}`;
+            console.log('Sending to URL:', url);
+            const response = await axios.get(url);
+            console.log('2Factor response:', response.data);
+        } else {
+            // For call, 2Factor may have voice API, but for now, skip or use SMS
+            res.status(400).json({ error: 'Call method not supported with current API' });
+            return;
+        }
+        res.json({ message: 'OTP sent' });
+    } catch (err) {
+        console.error('SMS API error:', err.message);
+        res.status(500).json({ error: 'Failed to send OTP' });
+    }
+};
+
+// VERIFY OTP
+exports.verifyOtp = async (req, res) => {
+    const { phone, otp } = req.body;
+    const stored = otpStore.get(phone);
+    if (!stored || stored.otp !== otp || Date.now() > stored.expires) {
+        return res.status(400).json({ error: 'Invalid or expired OTP' });
+    }
+    otpStore.delete(phone); // Clear OTP after verification
+    res.json({ message: 'OTP verified' });
 };
 
 

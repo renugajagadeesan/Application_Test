@@ -17,6 +17,8 @@ const { getHotelsByCity, searchDestination } = require("../controllers/hotelCont
 // ================= AUTH =================
 router.post("/signup", auth.signup);
 router.post("/login", auth.login);
+router.post("/send-otp", auth.sendOtp);
+router.post("/verify-otp", auth.verifyOtp);
 
 
 // ================= DESTINATIONS =================

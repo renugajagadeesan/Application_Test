@@ -18,55 +18,55 @@ const DestinationPage = () => {
   );
 
   // ✅ Fetch hotels
-useEffect(() => {
-  if (!destination) return;
-  fetchHotels(destination.apiName);
-}, [slug]);
+  useEffect(() => {
+    if (!destination) return;
+    fetchHotels(destination.apiName);
+  }, [slug]);
 
-const fetchHotels = async (cityName) => {
-  try {
-    setLoading(true);
+  const fetchHotels = async (cityName) => {
+    try {
+      setLoading(true);
 
-    const res = await axios.get(
-      "http://localhost:5000/api/auth/hotels",
-      {
-        params: { city: cityName }
+      const res = await axios.get(
+        "http://localhost:5000/api/auth/hotels",
+        {
+          params: { city: cityName }
+        }
+      );
+
+      console.log("API RESPONSE 👉", res.data);
+
+      let hotelsData = res.data?.data || [];
+
+      // ✅ Fallback if empty
+      if (hotelsData.length === 0) {
+        hotelsData = [
+          {
+            name: `${cityName} Beach Resort`,
+            city: cityName,
+            rating: 4.5,
+            photo: `https://source.unsplash.com/400x300/?hotel,${cityName}`,
+            price: "5000"
+          },
+          {
+            name: `${cityName} Grand Hotel`,
+            city: cityName,
+            rating: 4.2,
+            photo: `https://source.unsplash.com/400x300/?luxury hotel,${cityName}`,
+            price: "3500"
+          }
+        ];
       }
-    );
 
-    console.log("API RESPONSE 👉", res.data);
+      setHotels(hotelsData);
 
-    let hotelsData = res.data?.data || [];
-
-    // ✅ Fallback if empty
-if (hotelsData.length === 0) {
-  hotelsData = [
-    {
-      name: `${cityName} Beach Resort`,
-      city: cityName,
-      rating: 4.5,
-      photo: `https://source.unsplash.com/400x300/?hotel,${cityName}`,
-      price: "5000"
-    },
-    {
-      name: `${cityName} Grand Hotel`,
-      city: cityName,
-      rating: 4.2,
-      photo: `https://source.unsplash.com/400x300/?luxury hotel,${cityName}`,
-      price: "3500"
+    } catch (err) {
+      console.error(err);
+      setHotels([]);
+    } finally {
+      setLoading(false);
     }
-  ];
-}
-
-    setHotels(hotelsData);
-
-  } catch (err) {
-    console.error(err);
-    setHotels([]);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
   if (!destination) {
@@ -87,40 +87,40 @@ if (hotelsData.length === 0) {
 
       {/* ✅ Hotel List */}
       <div className="hotel-list">
-       {hotels.map((hotel, index) => (
+        {hotels.map((hotel, index) => (
           // console.log("IMAGE URL 👉", hotel.photo);
-  <div key={index} className="hotel-card">
-    
-   <img
-  src={
-    hotel.photo
-      ? hotel.photo.startsWith("http")
-        ? hotel.photo
-        : `https:${hotel.photo}`   // ✅ FIX HERE
-      : "https://images.unsplash.com/photo-1566073771259-6a8506099945"
-  }
-  alt={hotel.name}
-  style={{
-    width: "100%",
-    height: "200px",
-    objectFit: "cover"
-  }}
-  onError={(e) => {
-    e.target.src =
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb210c3";
-  }}
-/>
+          <div key={index} className="hotel-card">
 
-    <h3>{hotel.name}</h3>
-    
-    <p>{hotel.address || hotel.city}</p>
+            <img
+              src={
+                hotel.photo
+                  ? hotel.photo.startsWith("http")
+                    ? hotel.photo
+                    : `https:${hotel.photo}`   // ✅ FIX HERE
+                  : "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+              }
+              alt={hotel.name}
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover"
+              }}
+              onError={(e) => {
+                e.target.src =
+                  "https://images.unsplash.com/photo-1501117716987-c8e1ecb210c3";
+              }}
+            />
 
-    <p>⭐ {hotel.rating || "N/A"}</p>
+            <h3>{hotel.name}</h3>
 
-    <p>₹ {hotel.price || "Not available"}</p>
+            <p>{hotel.address || hotel.city}</p>
 
-  </div>
-))}
+            <p>⭐ {hotel.rating || "N/A"}</p>
+
+            <p>₹ {hotel.price || "Not available"}</p>
+
+          </div>
+        ))}
       </div>
     </div>
   );

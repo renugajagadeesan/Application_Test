@@ -1,54 +1,53 @@
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
-
-export const searchHotels = async (cityName) => {
+// ✅ COMBINED HOTEL SEARCH - Uses Tripadvisor & Amadeus APIs
+export const searchHotels = async (cityName, source = "both") => {
   try {
-    // Step 1: Get destination ID
-    const locationRes = await axios.get(
-      "https://booking-com.p.rapidapi.com/v1/hotels/locations",
-      {
-        params: {
-          name: cityName,
-          locale: "en-gb",
-        },
-        headers: {
-          "X-RapidAPI-Key": API_KEY,
-          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
-        },
-      }
-    );
+    // Call backend endpoint that combines both APIs
+    const response = await axios.get("http://localhost:5000/api/hotels", {
+      params: {
+        city: cityName,
+        source: source, // "tripadvisor", "amadeus", or "both"
+      },
+    });
 
-    const dest = locationRes.data[0];
-    if (!dest) return [];
-
-    // Step 2: Get hotels
-    const hotelRes = await axios.get(
-      "https://booking-com.p.rapidapi.com/v1/hotels/search",
-      {
-        params: {
-          dest_id: dest.dest_id,
-          dest_type: dest.dest_type,
-          checkin_date: "2026-04-01",
-          checkout_date: "2026-04-02",
-          adults_number: "2",
-          room_number: "1",
-          order_by: "popularity",
-          locale: "en-gb",
-          units: "metric",              // ✅ add this
-          currency: "INR",              // ✅ add this
-        },
-        headers: {
-          "X-RapidAPI-Key": API_KEY,
-          "X-RapidAPI-Host": "booking-com.p.rapidapi.com",
-        },
-      }
-    );
-
-    return hotelRes.data.result;
-
+    return response.data.hotels || [];
   } catch (err) {
-    console.error(err);
+    console.error("Hotel search error:", err);
+    return [];
+  }
+};
+
+// ✅ TRIPADVISOR ONLY - Get hotels from Tripadvisor
+export const searchHotelsTripadvisor = async (cityName) => {
+  try {
+    const response = await axios.get("http://localhost:5000/api/hotels", {
+      params: {
+        city: cityName,
+        source: "tripadvisor",
+      },
+    });
+
+    return response.data.hotels.filter(h => h.source === "Tripadvisor") || [];
+  } catch (err) {
+    console.error("Tripadvisor search error:", err);
+    return [];
+  }
+};
+
+// ✅ AMADEUS ONLY - Get hotels from Amadeus
+export const searchHotelsAmadeus = async (cityName) => {
+  try {
+    const response = await axios.get("http://localhost:5000/api/hotels", {
+      params: {
+        city: cityName,
+        source: "amadeus",
+      },
+    });
+
+    return response.data.hotels.filter(h => h.source === "Amadeus") || [];
+  } catch (err) {
+    console.error("Amadeus search error:", err);
     return [];
   }
 };

@@ -12,7 +12,7 @@ const {
   deleteDestination,
 } = require("../controllers/destinationController");
 
-const { getHotelsByCity, searchDestination } = require("../controllers/hotelController");
+const { getHotelsByCity } = require("../controllers/hotelController");
 
 // ================= AUTH =================
 router.post("/signup", auth.signup);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './Home.css';
 
+const toSlug = (name) => name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+
 const HomePage = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -139,7 +141,12 @@ const HomePage = () => {
           ) : (
             <div className="destination-grid">
               {popularDestinations.map((dest) => (
-                <div key={dest._id} className="destination-card">
+                <div 
+                  key={dest._id} 
+                  className="destination-card"
+                  onClick={() => navigate(`/destination/${toSlug(dest.city)}`)}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="card-image">
                     {/* ✅ Cloudinary URL stored in dest.image */}
                     <img src={dest.image} alt={dest.city} />

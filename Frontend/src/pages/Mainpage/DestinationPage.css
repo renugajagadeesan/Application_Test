@@ -1,0 +1,91 @@
+.hotelSearchBar_wrapper {
+  background: linear-gradient(to right, #001e3d, #004b8a);
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.hotelSearchBar_container {
+  background: #fff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.hotelSearchBar_field {
+  border-right: 1px solid #ddd;
+  padding-right: 15px;
+  min-width: 180px;
+}
+
+.hotelSearchBar_field:last-of-type {
+  border-right: none;
+}
+
+.hotelSearchBar_label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #777;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.hotelSearchBar_select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+}
+
+.hotelSearchBar_dateInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+}
+
+.hotelSearchBar_button {
+  background: #3971e4;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.hotelSearchBar_button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .hotelSearchBar_container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hotelSearchBar_field {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding-right: 0;
+    padding-bottom: 12px;
+  }
+
+  .hotelSearchBar_button {
+    width: 100%;
+  }
+}

@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DESTINATIONS } from "./Data/destinations";
+import "./DestinationPage.css";
 
 const toSlug = (name) => name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
@@ -13,6 +14,55 @@ const DestinationPage = () => {
   const [loadingDest, setLoadingDest] = useState(true);
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState({
+  district: "",
+  state: "",
+  country: "",
+});
+
+
+useEffect(() => {
+  const getCurrentLocation = async () => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+
+          const data = await response.json();
+
+          setCurrentLocation({
+            district:
+              data.address.city ||
+              data.address.town ||
+              data.address.county ||
+              "",
+            state: data.address.state || "",
+            country: data.address.country || "",
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  getCurrentLocation();
+}, []);
+
+useEffect(() => {
+  if (currentLocation.district) {
+    fetchHotels(currentLocation.district);
+  }
+}, [currentLocation]);
 
   useEffect(() => {
     const resolveDestinationAndHotels = async () => {
@@ -120,48 +170,14 @@ const DestinationPage = () => {
     <div style={{ background: "#f4f4f4", minHeight: "100vh", fontFamily: "'Inter', system-ui, sans-serif", paddingBottom: "50px" }}>
 
       {/* Top Search Bar (Mock) */}
-     <div
-  style={{
-    background: "linear-gradient(to right, #001e3d, #004b8a)",
-    padding: "15px",
-    display: "flex",
-    justifyContent: "center",
-  }}
->
-  <div
-    style={{
-      background: "white",
-      padding: "10px",
-      borderRadius: "8px",
-      display: "flex",
-      gap: "15px",
-      alignItems: "center",
-      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-      flexWrap: "wrap",
-    }}
-  >
-    {/* Destination */}
-    <div style={{ borderRight: "1px solid #ddd", paddingRight: "15px" }}>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#777",
-          fontWeight: "bold",
-          marginBottom: "5px",
-        }}
-      >
+     <div className="hotelSearchBar_wrapper">
+  <div className="hotelSearchBar_container">
+
+    <div className="hotelSearchBar_field">
+      <div className="hotelSearchBar_label">
         CITY, AREA OR PROPERTY
       </div>
-      <select
-        style={{
-          border: "none",
-          outline: "none",
-          fontWeight: "bold",
-          fontSize: "15px",
-          color: "#000",
-          background: "transparent",
-        }}
-      >
+      <select className="hotelSearchBar_select">
         <option>Madurai</option>
         <option>Chennai</option>
         <option>Bangalore</option>
@@ -169,74 +185,25 @@ const DestinationPage = () => {
       </select>
     </div>
 
-    {/* Check In */}
-    <div style={{ borderRight: "1px solid #ddd", paddingRight: "15px" }}>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#777",
-          fontWeight: "bold",
-          marginBottom: "5px",
-        }}
-      >
-        CHECK-IN
-      </div>
+    <div className="hotelSearchBar_field">
+      <div className="hotelSearchBar_label">CHECK-IN</div>
       <input
         type="date"
-        style={{
-          border: "none",
-          outline: "none",
-          fontWeight: "bold",
-          fontSize: "15px",
-        }}
+        className="hotelSearchBar_dateInput"
       />
     </div>
 
-    {/* Check Out */}
-    <div style={{ borderRight: "1px solid #ddd", paddingRight: "15px" }}>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#777",
-          fontWeight: "bold",
-          marginBottom: "5px",
-        }}
-      >
-        CHECK-OUT
-      </div>
+    <div className="hotelSearchBar_field">
+      <div className="hotelSearchBar_label">CHECK-OUT</div>
       <input
         type="date"
-        style={{
-          border: "none",
-          outline: "none",
-          fontWeight: "bold",
-          fontSize: "15px",
-        }}
+        className="hotelSearchBar_dateInput"
       />
     </div>
 
-    {/* Guests */}
-    <div style={{ borderRight: "1px solid #ddd", paddingRight: "15px" }}>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#777",
-          fontWeight: "bold",
-          marginBottom: "5px",
-        }}
-      >
-        ROOMS & GUESTS
-      </div>
-      <select
-        style={{
-          border: "none",
-          outline: "none",
-          fontWeight: "bold",
-          fontSize: "15px",
-          color: "#000",
-          background: "transparent",
-        }}
-      >
+    <div className="hotelSearchBar_field">
+      <div className="hotelSearchBar_label">ROOMS & GUESTS</div>
+      <select className="hotelSearchBar_select">
         <option>1 Room, 2 Adults</option>
         <option>1 Room, 1 Adult</option>
         <option>2 Rooms, 4 Adults</option>
@@ -244,22 +211,10 @@ const DestinationPage = () => {
       </select>
     </div>
 
-    {/* Search Button */}
-    <button
-      style={{
-        background: "#3971e4",
-        color: "white",
-        border: "none",
-        padding: "12px 30px",
-        borderRadius: "30px",
-        fontWeight: "bold",
-        fontSize: "16px",
-        cursor: "pointer",
-        marginLeft: "10px",
-      }}
-    >
+    <button className="hotelSearchBar_button">
       SEARCH
     </button>
+
   </div>
 </div>
 
@@ -286,9 +241,38 @@ const DestinationPage = () => {
            <div style={{ background: "white", borderRadius: "8px", overflow: "hidden", border: "1px solid #e7e7e7", cursor: "pointer" }}>
              <div style={{ height: "120px", background: "#ddd", position: "relative" }}>
                  <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} alt="Map" />
-                 <div style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)", background: "white", padding: "5px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: "bold", color: "#008cff", boxShadow: "0 2px 5px rgba(0,0,0,0.2)", whiteSpace: "nowrap" }}>
-                    EXPLORE ON MAP 📍
-                 </div>
+                 <div
+  style={{
+    position: "absolute",
+    bottom: "10px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "white",
+    padding: "8px 12px",
+    borderRadius: "10px",
+    textAlign: "center",
+    minWidth: "180px",
+  }}
+>
+  <div
+    style={{
+      fontWeight: "600",
+      color: "#008cff",
+      fontSize: "13px",
+    }}
+  >
+    📍 {currentLocation.district || "Detecting..."}
+  </div>
+
+  <div
+    style={{
+      fontSize: "11px",
+      color: "#666",
+    }}
+  >
+    {currentLocation.state}
+  </div>
+</div>
              </div>
            </div>
 

@@ -58,11 +58,7 @@ useEffect(() => {
   getCurrentLocation();
 }, []);
 
-useEffect(() => {
-  if (currentLocation.district) {
-    fetchHotels(currentLocation.district);
-  }
-}, [currentLocation]);
+
 
   useEffect(() => {
     const resolveDestinationAndHotels = async () => {
@@ -177,12 +173,9 @@ useEffect(() => {
       <div className="hotelSearchBar_label">
         CITY, AREA OR PROPERTY
       </div>
-      <select className="hotelSearchBar_select">
-        <option>Madurai</option>
-        <option>Chennai</option>
-        <option>Bangalore</option>
-        <option>Mumbai</option>
-      </select>
+      <p className="hotelSearchBar_select">
+        {destination.name}
+      </p>
     </div>
 
     <div className="hotelSearchBar_field">

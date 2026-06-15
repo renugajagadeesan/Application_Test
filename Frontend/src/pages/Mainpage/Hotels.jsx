@@ -85,7 +85,7 @@ export default function Hotels() {
         <div className="hotels-page">
 
             {/* ── Navbar ── */}
-            <header className="header">
+            {/* <header className="header">
                 <nav className="navbar">
                     <div className="nav-container">
                         <div className="logo">
@@ -113,7 +113,7 @@ export default function Hotels() {
                         </div>
                     </div>
                 </nav>
-            </header>
+            </header> */}
 
             {/* ── Hero ── */}
             <section className="hero-hotels">

@@ -5,9 +5,7 @@ import './Home.css';
 const toSlug = (name) => name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
 const HomePage = () => {
-  const [isSticky, setIsSticky] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [popularDestinations, setPopularDestinations] = useState([]);
   const navigate = useNavigate();
 
@@ -17,14 +15,9 @@ const HomePage = () => {
 
   // ✅ Single merged useEffect — no duplicate scroll listener
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
     fetchDestinations(); // ✅ fetch on mount
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {};
   }, []);
 
   const fetchDestinations = async () => {
@@ -52,37 +45,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Header */}
-      <header className={`header ${isSticky ? 'sticky' : ''}`}>
-        <nav className="navbar">
-          <div className="nav-container">
-            <div className="logo">
-              <span className="logo-icon">✈</span>
-              <span className="logo-text">TravelNest</span>
-            </div>
-
-            <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
-              <li><a href="#home" className="nav-link">Home</a></li>
-              <li><a href="/hotels" className="nav-link">Destinations</a></li>
-              <li><a href="#deals" className="nav-link">Deals</a></li>
-              <li><a href="#about" className="nav-link">About</a></li>
-              <li><a href="#contact" className="nav-link">Contact</a></li>
-            </ul>
-
-            <div className="nav-actions">
-              <button className="btn-secondary" onClick={goToSignin}>Sign In</button>
-              <button className="btn-primary">Register</button>
-            </div>
-
-            <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </nav>
-      </header>
-
       {/* Hero Section */}
       <section className="hero-home" id="home">
         <div className="hero-bg">

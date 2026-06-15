@@ -14,11 +14,24 @@ const {
 
 const { getHotelsByCity } = require("../controllers/hotelController");
 
+const {
+  createContact,
+  getAllContacts,
+  getContactById,
+  deleteContact,
+} = require("../controllers/contactController");
+
 // ================= AUTH =================
 router.post("/signup", auth.signup);
 router.post("/login", auth.login);
 router.post("/send-otp", auth.sendOtp);
 router.post("/verify-otp", auth.verifyOtp);
+
+// ================= CONTACT =================
+router.post("/contact", createContact);
+router.get("/contact", getAllContacts);
+router.get("/contact/:id", getContactById);
+router.delete("/contact/:id", deleteContact);
 
 
 // ================= DESTINATIONS =================

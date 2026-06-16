@@ -47,7 +47,6 @@ function Contact() {
         message: ''
       });
 
-      // Clear success message after 5 seconds
       setTimeout(() => setSuccessMessage(''), 5000);
     } catch (error) {
       const errorMsg = error.response?.data?.error || 'Failed to send message. Please try again.';
@@ -59,112 +58,161 @@ function Contact() {
   };
 
   return (
-    <div className="contact-container">
-      <div className="contact-wrapper">
-        <h1 className="contact-title">Get In Touch</h1>
-        <p className="contact-subtitle">Have questions? We'd love to hear from you.</p>
-
-        <form onSubmit={handleSubmit} className="contact-form">
-          {/* Name Field */}
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">Full Name *</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your full name"
-              className="form-input"
-              required
+    <div className="contact-page">
+      <div className="contact-grid">
+        {/* Left Section - Image & Info */}
+        <div className="contact-image-section">
+          <div className="image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=800&fit=crop"
+              alt="Contact us"
+              className="contact-image"
             />
+            <div className="image-overlay"></div>
           </div>
-
-          {/* Phone Field */}
-          <div className="form-group">
-            <label htmlFor="phone" className="form-label">Phone Number *</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-              className="form-input"
-              required
-            />
-          </div>
-
-          {/* Email Field */}
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">Email Address (Optional)</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email address"
-              className="form-input"
-            />
-          </div>
-
-          {/* Address Field */}
-          <div className="form-group">
-            <label htmlFor="address" className="form-label">Address *</label>
-            <textarea
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Enter your address"
-              className="form-input form-textarea"
-              rows="3"
-              required
-            ></textarea>
-          </div>
-
-          {/* Message Field */}
-          <div className="form-group">
-            <label htmlFor="message" className="form-label">Message (Optional)</label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Tell us more about your inquiry"
-              className="form-input form-textarea"
-              rows="4"
-            ></textarea>
-          </div>
-
-          {/* Success Message */}
-          {successMessage && (
-            <div className="message success-message">
-              {successMessage}
+          
+          <div className="contact-info-box">
+            <h3>Let's Connect</h3>
+            <p>We're here to help and answer any question you might have.</p>
+            
+            <div className="info-items">
+              <div className="info-item">
+                <span className="info-icon">📧</span>
+                <div>
+                  <p className="info-label">Email</p>
+                  <p className="info-value">hello@company.com</p>
+                </div>
+              </div>
+              
+              <div className="info-item">
+                <span className="info-icon">📱</span>
+                <div>
+                  <p className="info-label">Phone</p>
+                  <p className="info-value">+1 (555) 123-4567</p>
+                </div>
+              </div>
+              
+              <div className="info-item">
+                <span className="info-icon">📍</span>
+                <div>
+                  <p className="info-label">Location</p>
+                  <p className="info-value">123 Main Street, NY</p>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
+        </div>
 
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="message error-message">
-              {errorMessage}
+        {/* Right Section - Form */}
+        <div className="contact-form-section">
+          <div className="form-header">
+            <h1 className="form-title">Send us a Message</h1>
+            <p className="form-subtitle">We'll get back to you as soon as possible</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="contact-form">
+            {/* Name Field */}
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">Full Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className="form-input"
+                required
+              />
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="submit-btn"
-          >
-            {loading ? '📤 Sending...' : '📤 Send Message'}
-          </button>
-        </form>
+            {/* Two Column Row */}
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="phone" className="form-label">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+1 (555) 123-4567"
+                  className="form-input"
+                  required
+                />
+              </div>
 
-        <p className="contact-note">
-          💬 You'll receive a WhatsApp message and email confirmation once we process your request.
-        </p>
+              <div className="form-group">
+                <label htmlFor="email" className="form-label">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  className="form-input"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Address Field */}
+            <div className="form-group">
+              <label htmlFor="address" className="form-label">Address</label>
+              <textarea
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Enter your address"
+                className="form-input form-textarea"
+                rows="2"
+              ></textarea>
+            </div>
+
+            {/* Message Field */}
+            <div className="form-group">
+              <label htmlFor="message" className="form-label">Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell us more about your inquiry..."
+                className="form-input form-textarea"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            {/* Messages */}
+            {successMessage && (
+              <div className="message success-message">
+                {successMessage}
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="message error-message">
+                {errorMessage}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="submit-btn"
+            >
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
+
+          <p className="form-note">
+            We'll respond within 24 hours. Your information is safe with us.
+          </p>
+        </div>
       </div>
     </div>
   )

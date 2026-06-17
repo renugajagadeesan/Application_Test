@@ -1,10 +1,4 @@
 /* ===== MODERN CONTACT FORM ===== */
-/* 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
 
 html {
   scroll-behavior: smooth;
@@ -12,8 +6,8 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  background: #f8f8f8;
-  color: #1a1a1a;
+  background: #faf6f1;
+  color: #3a3a3a;
 }
 
 /* ===== MAIN CONTAINER ===== */
@@ -21,21 +15,22 @@ body {
 .contact-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  padding: 0;
+  background: #faf6f1;
 }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  max-width: 1200px;
+  max-width: 100%;
   width: 100%;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+  height: 100vh;
+  background: #faf6f1;
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
   animation: fadeIn 0.6s ease-out;
 }
@@ -57,13 +52,14 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 10%;
+  margin-top: 0;
+  height: 100%;
 }
 
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 450px;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -88,104 +84,44 @@ body {
   pointer-events: none;
 }
 
-/* Contact Info Box */
-.contact-info-box {
-  flex: 1;
-  padding: 50px 40px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-info-box h3 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.contact-info-box p {
-  font-size: 15px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 40px;
-  font-weight: 400;
-}
-
-/* Info Items */
-.info-items {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.info-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  transition: transform 0.3s ease;
-}
-
-.info-item:hover {
-  transform: translateX(8px);
-}
-
-.info-icon {
-  font-size: 28px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.info-item div {
-  display: flex;
-  flex-direction: column;
-}
-
-.info-label {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #999;
-  margin-bottom: 4px;
-}
-
-.info-value {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
 /* ===== RIGHT SECTION - FORM ===== */
 
 .contact-form-section {
-  padding: 60px 50px;
-  /* display: flex;
+  padding: 80px 60px;
+  display: flex;
   flex-direction: column;
-  justify-content: center; */
+  justify-content: flex-start;
+  height: 100vh;
+  overflow-y: auto;
+  background: #faf6f1;
 }
 
 .form-header {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   animation: slideInUp 0.6s ease-out 0.1s both;
 }
 
-.form-title {
-  font-size: 36px;
+.form-label-top {
+  font-size: 12px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #c9a66b;
   margin-bottom: 12px;
-  color: #1a1a1a;
-  letter-spacing: -0.5px;
+}
+
+.form-title {
+  font-size: 48px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: #3a3a3a;
+  letter-spacing: -1px;
+  font-family: 'Georgia', serif;
 }
 
 .form-subtitle {
-  font-size: 15px;
-  color: #888;
+  font-size: 16px;
+  color: #8b7355;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -205,7 +141,7 @@ body {
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   animation: slideInUp 0.6s ease-out 0.2s both;
 }
 
@@ -213,50 +149,96 @@ body {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
 }
 
-.form-label {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #333;
-}
-
-.form-input {
-  padding: 13px 16px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  background: #fafafa;
-  color: #1a1a1a;
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  border: 2px solid #e8dcc8;
+  border-radius: 12px;
+  padding: 16px 18px;
+  background: white;
   transition: all 0.3s ease;
 }
 
+.input-wrapper:focus-within {
+  border-color: #c9a66b;
+  box-shadow: 0 0 0 4px rgba(201, 166, 107, 0.1);
+}
+
+.form-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-family: inherit;
+  color: #3a3a3a;
+  outline: none;
+  padding: 0;
+}
+
 .form-input::placeholder {
-  color: #aaa;
+  color: #b8a894;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #333;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: auto;
   font-family: inherit;
 }
 
-/* Form Row - Two Columns */
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+/* Preferences - Radio Buttons */
+.form-group.preferences {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px 20px;
+  border: 2px solid #e8dcc8;
+  border-radius: 25px;
+  background: white;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8b7355;
+}
+
+.radio-option input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c9a66b;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.radio-option input[type="radio"]:checked {
+  background: #c9a66b;
+  box-shadow: inset 0 0 0 4px white;
+}
+
+.radio-option:hover {
+  border-color: #c9a66b;
+  background: #fefaf5;
+}
+
+.radio-label {
+  font-weight: 500;
 }
 
 /* Messages */
@@ -294,39 +276,38 @@ body {
 
 /* Submit Button */
 .submit-btn {
-  padding: 14px 24px;
-  background: #1a1a1a;
+  padding: 16px 32px;
+  background: #c9a66b;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 25px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.3px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 8px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   position: relative;
   overflow: hidden;
 }
 
-.submit-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  transition: left 0.4s ease;
+.btn-arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
 .submit-btn:hover:not(:disabled) {
+  background: #b8944f;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(201, 166, 107, 0.3);
 }
 
-.submit-btn:hover:not(:disabled)::before {
-  left: 100%;
+.submit-btn:hover:not(:disabled) .btn-arrow {
+  transform: translateX(4px);
 }
 
 .submit-btn:active:not(:disabled) {
@@ -340,11 +321,23 @@ body {
 
 /* Form Note */
 .form-note {
-  font-size: 12px;
-  color: #999;
+  font-size: 14px;
+  color: #8b7355;
   text-align: center;
-  margin-top: 16px;
+  margin-top: 20px;
   font-weight: 400;
+}
+
+.form-link {
+  color: #c9a66b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.form-link:hover {
+  color: #b8944f;
+  text-decoration: underline;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -353,6 +346,7 @@ body {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 0;
+    height: auto;
   }
 
   .image-wrapper {
@@ -360,15 +354,11 @@ body {
   }
 
   .contact-form-section {
-    padding: 50px 40px;
+    padding: 60px 40px;
   }
 
   .form-title {
-    font-size: 28px;
-  }
-
-  .contact-info-box {
-    padding: 40px 30px;
+    font-size: 36px;
   }
 }
 
@@ -394,6 +384,23 @@ body {
   }
 
   .form-title {
+    font-size: 32px;
+  }
+
+  .input-wrapper {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .form-group.preferences {
+    gap: 12px;
+  }
+
+  .radio-option {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
     font-size: 24px;
     margin-bottom: 8px;
   }

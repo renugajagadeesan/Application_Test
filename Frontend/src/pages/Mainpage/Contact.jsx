@@ -60,7 +60,7 @@ function Contact() {
   return (
     <div className="contact-page">
       <div className="contact-grid">
-        {/* Left Section - Image & Info */}
+        {/* Left Section - Full Height Image */}
         <div className="contact-image-section">
           <div className="image-wrapper">
             <img 
@@ -70,87 +70,59 @@ function Contact() {
             />
             <div className="image-overlay"></div>
           </div>
-          
-          <div className="contact-info-box">
-            <h3>Let's Connect</h3>
-            <p>We're here to help and answer any question you might have.</p>
-            
-            <div className="info-items">
-              <div className="info-item">
-                <span className="info-icon">📧</span>
-                <div>
-                  <p className="info-label">Email</p>
-                  <p className="info-value">hello@company.com</p>
-                </div>
-              </div>
-              
-              <div className="info-item">
-                <span className="info-icon">📱</span>
-                <div>
-                  <p className="info-label">Phone</p>
-                  <p className="info-value">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              
-              <div className="info-item">
-                <span className="info-icon">📍</span>
-                <div>
-                  <p className="info-label">Location</p>
-                  <p className="info-value">123 Main Street, NY</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Right Section - Form */}
         <div className="contact-form-section">
           <div className="form-header">
+            <p className="form-label-top">GET IN TOUCH WITH US</p>
             <h1 className="form-title">Send us a Message</h1>
-            <p className="form-subtitle">We'll get back to you as soon as possible</p>
+            <p className="form-subtitle">Join thousands of travellers exploring the world</p>
           </div>
 
           <form onSubmit={handleSubmit} className="contact-form">
             {/* Name Field */}
             <div className="form-group">
-              <label htmlFor="name" className="form-label">Full Name *</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="John Doe"
-                className="form-input"
-                required
-              />
-            </div>
-
-            {/* Two Column Row */}
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="phone" className="form-label">Phone Number *</label>
+              <div className="input-wrapper">
                 <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="Enter Your Name"
                   className="form-input"
                   required
                 />
               </div>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">Email Address *</label>
+            {/* Email Field */}
+            <div className="form-group">
+              <div className="input-wrapper">
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@example.com"
+                  placeholder="Enter Email"
+                  className="form-input"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Phone Field */}
+            <div className="form-group">
+              <div className="input-wrapper">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter Phone Number"
                   className="form-input"
                   required
                 />
@@ -159,31 +131,45 @@ function Contact() {
 
             {/* Address Field */}
             <div className="form-group">
-              <label htmlFor="address" className="form-label">Address</label>
-              <textarea
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder="Enter your address"
-                className="form-input form-textarea"
-                rows="2"
-              ></textarea>
+              <div className="input-wrapper">
+                <textarea
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Enter Your Address"
+                  className="form-input form-textarea"
+                  rows="2"
+                ></textarea>
+              </div>
             </div>
 
             {/* Message Field */}
             <div className="form-group">
-              <label htmlFor="message" className="form-label">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell us more about your inquiry..."
-                className="form-input form-textarea"
-                rows="4"
-                required
-              ></textarea>
+              <div className="input-wrapper">
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell us more about your inquiry..."
+                  className="form-input form-textarea"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Communication Preference */}
+            <div className="form-group preferences">
+              <label className="radio-option">
+                <input type="radio" name="preference" value="sms" defaultChecked />
+                <span className="radio-label">SMS</span>
+              </label>
+              <label className="radio-option">
+                <input type="radio" name="preference" value="email" />
+                <span className="radio-label">Email</span>
+              </label>
             </div>
 
             {/* Messages */}
@@ -205,12 +191,13 @@ function Contact() {
               disabled={loading}
               className="submit-btn"
             >
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? 'Sending...' : 'Send My Message'}
+              <span className="btn-arrow">→</span>
             </button>
           </form>
 
           <p className="form-note">
-            We'll respond within 24 hours. Your information is safe with us.
+            Don't have a travel plan? <a href="/signup" className="form-link">Create Account</a>
           </p>
         </div>
       </div>

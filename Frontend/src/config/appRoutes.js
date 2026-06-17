@@ -21,8 +21,8 @@ export const appRoutes = [
   {
     id: 4,
     label: 'About',
-    path: '#about',
-    type: 'hash'
+    path: '/about',
+    type: 'page'
   },
   {
     id: 5,

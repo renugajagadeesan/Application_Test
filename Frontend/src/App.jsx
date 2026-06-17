@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Signup from './pages/Mainpage/Signup'
 import Login from './pages/Mainpage/Login'
 import Home from './pages/Mainpage/Home'
+import About from './pages/Mainpage/About'
 import Admin from "./pages/Adminpage/admin"
 import Hotels from './pages/Mainpage/Hotels'
 import DestinationPage from "./pages/Mainpage/DestinationPage";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/hotels" element={<Hotels />} />
         <Route path="/destination/:slug" element={<DestinationPage />} />

@@ -152,6 +152,89 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="about" id="about">
+        <div className="container">
+          <div className="about-header">
+            <p className="about-label">DISCOVER OUR STORY</p>
+            <h2 className="section-title">About TravelNest</h2>
+            <p className="about-intro">Your trusted companion for unforgettable travel experiences worldwide</p>
+          </div>
+
+          <div className="about-content">
+            <div className="about-text">
+              <div className="about-section">
+                <h3>Our Mission</h3>
+                <p>At TravelNest, we believe that travel is more than just a journey—it's an opportunity to explore new cultures, create lasting memories, and discover the beauty of our world. Our mission is to make travel accessible, affordable, and extraordinary for everyone.</p>
+              </div>
+
+              <div className="about-section">
+                <h3>Why We're Different</h3>
+                <ul className="about-features">
+                  <li><span className="check">✓</span> Curated hotel selections from luxury to budget-friendly</li>
+                  <li><span className="check">✓</span> Real-time pricing with best price guarantee</li>
+                  <li><span className="check">✓</span> 24/7 customer support in multiple languages</li>
+                  <li><span className="check">✓</span> Personalized travel recommendations</li>
+                  <li><span className="check">✓</span> Exclusive deals and loyalty rewards</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="about-stats">
+              <div className="stat-card">
+                <h4 className="stat-number">50K+</h4>
+                <p className="stat-label">Happy Travelers</p>
+              </div>
+              <div className="stat-card">
+                <h4 className="stat-number">150+</h4>
+                <p className="stat-label">Destinations</p>
+              </div>
+              <div className="stat-card">
+                <h4 className="stat-number">10K+</h4>
+                <p className="stat-label">Hotel Partners</p>
+              </div>
+              <div className="stat-card">
+                <h4 className="stat-number">99%</h4>
+                <p className="stat-label">Satisfaction Rate</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="services-grid">
+            <div className="service-card">
+              <div className="service-icon">🌍</div>
+              <h4>Global Coverage</h4>
+              <p>Access hotels and accommodations across 150+ countries and growing</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">💎</div>
+              <h4>Premium Quality</h4>
+              <p>Hand-picked luxury properties with verified ratings and reviews</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🔒</div>
+              <h4>Secure Booking</h4>
+              <p>Safe transactions with SSL encryption and buyer protection guarantee</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">⚡</div>
+              <h4>Instant Confirmation</h4>
+              <p>Book now and get instant confirmation with flexible cancellation</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">💬</div>
+              <h4>Expert Support</h4>
+              <p>Dedicated support team ready to assist 24/7 via chat, phone, or email</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🎁</div>
+              <h4>Loyalty Rewards</h4>
+              <p>Earn points on every booking and redeem for future discounts</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Special Offers */}
       <section className="special-offers">
         <div className="container">

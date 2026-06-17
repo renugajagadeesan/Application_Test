@@ -5,13 +5,13 @@
 }
 
 :root {
-  --primary-color: #FF385C;
+  --primary-color: #c8843a;
   --secondary-color: #00A699;
   --dark-color: #222222;
   --light-gray: #F7F7F7;
   --text-gray: #717171;
   --white: #FFFFFF;
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient: #c8843a;
 }
 
 body {
@@ -129,10 +129,11 @@ body {
 }
 
 .btn-primary, .btn-secondary {
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 2rem;
   border: none;
-  border-radius: 25px;
+  border-radius: 28px;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -143,8 +144,8 @@ body {
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255,56,92,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(200, 132, 58, 0.4);
 }
 
 .btn-secondary {
@@ -156,6 +157,8 @@ body {
 .btn-secondary:hover {
   background: var(--dark-color);
   color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(34, 34, 34, 0.3);
 }
 
 .hamburger {
@@ -1299,7 +1302,7 @@ body {
 
 .newsletter-form button {
   background: var(--white);
-  color: #667eea;
+  color: var(--primary-color);
   border: none;
   padding: 1rem 2rem;
   border-radius: 50px;

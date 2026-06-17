@@ -400,7 +400,8 @@ body {
     padding: 10px 16px;
     font-size: 13px;
   }
-}
+
+  .form-title {
     font-size: 24px;
     margin-bottom: 8px;
   }
